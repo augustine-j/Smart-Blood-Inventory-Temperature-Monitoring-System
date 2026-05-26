@@ -43,10 +43,11 @@ php artisan queue:work
 
 ## Test Users
 
-## Role                 Email                 Passwor
-   Admin                admin@example.com      password
-   Blood Bank Staff     staff@example.com      password
-   Monitoring User      monitor@example.com    password
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@example.com | password |
+| Blood Bank Staff | staff@example.com | password |
+| Monitoring User | monitor@example.com | password |
 
 ## Authentication
 Login to get token:
