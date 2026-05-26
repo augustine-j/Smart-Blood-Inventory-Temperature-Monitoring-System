@@ -14,6 +14,16 @@ class TemperatureLogResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'temperature' => $this->temperature,
+            'status' => $this->status,
+            'recorded_at' => $this->recorded_at?->toDateTimeString(),
+            'refrigerator' => $this->whenLoaded('refrigerator', fn () => [
+                'id' => $this->refrigerator->id,
+                'name' => $this->refrigerator->name,
+                'code' => $this->refrigerator->code,
+            ]),
+        ];
     }
 }

@@ -11,7 +11,7 @@ class StoreBloodBagRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return in_array($this->user()?->role, ['admin', 'staff'], true);
     }
 
     /**
@@ -22,7 +22,14 @@ class StoreBloodBagRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'refrigerator_id' => ['required', 'exists:refrigerators,id'],
+            'bag_number' => ['required', 'string', 'max:255', 'unique:blood_bags,bag_number'],
+            'blood_group' => ['required', 'string', 'max:5'],
+            'donor_name' => ['required', 'string', 'max:255'],
+            'collection_date' => ['required', 'date'],
+            'expiry_date' => ['required', 'date', 'after:collection_date'],
+            'quantity_ml' => ['required', 'integer', 'min:1'],
+            'status' => ['required', 'in:available,reserved,dispatched,expired'],
         ];
     }
 }

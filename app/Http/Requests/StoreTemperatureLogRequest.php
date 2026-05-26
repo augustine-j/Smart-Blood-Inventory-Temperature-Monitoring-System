@@ -11,7 +11,7 @@ class StoreTemperatureLogRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return in_array($this->user()?->role, ['admin', 'monitoring'], true);
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreTemperatureLogRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'refrigerator_id' => ['required', 'exists:refrigerators,id'],
+            'temperature' => ['required', 'numeric'],
+            'recorded_at' => ['nullable', 'date'],
         ];
     }
 }
